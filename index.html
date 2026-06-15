@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dynamic Portfolio</title>
+    <link rel="stylesheet" href="stylee.css">
+    <style>
+        /* JavaScript scroll animation ko smoothly chalane ke liye zaroori CSS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="dynamic-title"></h1>
+        <p>Hi, I am Muhammad Rayan Khan a Matric Graduate passionate about Data & IT.</p>
+    </header>
+
+    <section class="about reveal">
+        <h2>About Me</h2>
+        <p>Completed my 10th grade in 2026 from Quaid-e-Azam Rangers school Nawabshah. Currently learning Web Development and exploring career paths in Data Science and Business Analysis. Active and motivated to work on new tech projects.</p>
+    </section>
+
+    <section class="skills reveal">
+        <h2>My Skills</h2>
+        <ul>
+            <li>HTML & CSS (Basic)</li>
+            <li>JavaScript (Internal Scripting)</li>
+            <li>Microsoft Excel & Word</li>
+        </ul>
+    </section>
+
+    <section class="projects reveal">
+        <h2>My Projects</h2>
+        <div class="project-card">
+            <h3>Dynamic Portfolio Website</h3>
+            <p>Built a responsive personal website using HTML, CSS, and Internal JavaScript on mobile using Acode.<div
+                <section class="projects reveal">
+        <h2>My Projects</h2>
+        
+        <div class="project-card" style="margin-bottom: 20px;">
+            <h3>Portfolio Website</h3>
+            <p>Built a responsive personal website using HTML and CSS on mobile using Acode.</p>
+        </div>
+
+        <div class="project-card">
+            <h3>
+                <a href="https://rayankhan-7.github.io/my-calculator/" target="_blank" style="color: #f5c453; text-decoration: none; border-bottom: 1px dashed #f5c453;">
+                    Interactive Calculator ↗
+                </a>
+            </h3>
+            <p>Built using HTML, CSS, and dynamic JavaScript logic. Features a premium dark blue and gold theme with pulsing border glows.</p>
+        </div>
+    </section>
+
+</div>
+</p>
+        </div>
+    </section>
+    <a href="https://wa.me/923362267118?text=Hi!%20I%20saw%20your%20portfolio%20and%20want%20to%20connect." class="whatsapp-floating-btn" target="_blank">
+        <svg viewBox="0 0 32 32" class="whatsapp-icon">
+            <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825.737 5.48 2.025 7.792l-2.025 7.392 7.561-1.983c2.212 1.144 4.727 1.799 7.392 1.799 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.333c-2.417 0-4.693-.619-6.683-1.701l-.479-.261-4.469 1.172 1.193-4.356-.287-.456c-1.193-1.896-1.828-4.115-1.828-6.448 0-6.984 5.683-12.667 12.667-12.667s12.667 5.683 12.667 12.667-5.683 12.667-12.667 12.667zM22.511 19.349c-.354-.177-2.104-1.036-2.427-1.156-.323-.115-.557-.177-.792.177-.234.354-.911 1.156-1.115 1.385-.203.234-.406.26-.76.083-1.505-.635-2.568-1.141-3.594-2.896-.271-.464.271-.427.776-1.432.083-.177.042-.328-.021-.453-.063-.125-.557-1.344-.766-1.849-.203-.495-.411-.427-.557-.432h-.479c-.167 0-.438.063-.667.313-.229.25-1.125 1.1-1.125 2.682s1.156 3.115 1.313 3.323c.156.208 2.271 3.464 5.505 4.865.766.333 1.365.531 1.833.682.771.245 1.474.208 2.031.125.615-.094 1.885-.771 2.156-1.479.271-.708.271-1.313.193-1.438-.083-.115-.302-.198-.656-.375z"/>
+        </svg>
+    </a>
+
+    <script>
+        // 1. TYPING ANIMATION
+        const titleText = "Welcome To My Dynamic Portfolio";
+        let index = 0;
+
+        function typeEffect() {
+            if (index < titleText.length) {
+                document.getElementById("dynamic-title").innerHTML += titleText.charAt(index);
+                index++;
+                setTimeout(typeEffect, 100);
+            }
+        }
+        window.addEventListener("DOMContentLoaded", typeEffect);
+
+        // 2. SCROLL REVEAL ANIMATION
+        function revealSections() {
+            const reveals = document.querySelectorAll(".reveal");
+
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                } else {
+                    reveals[i].classList.remove("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", revealSections);
+        window.addEventListener("DOMContentLoaded", revealSections);
+    </script>
+</body>
+</html>

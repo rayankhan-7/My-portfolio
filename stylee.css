@@ -1,0 +1,169 @@
+/* --- Core Styles & Variables (Dark Blue & Golden Theme) --- */
+:root {
+    --bg-dark-blue: #0a192f;   /* Premium Dark Navy Blue */
+    --card-blue: #112240;      /* Slightly Lighter Blue for Sections */
+    --gold-main: #f5c453;      /* Royal Metallic Gold */
+    --gold-glow: #e5b33a;      /* Deep Gold for shadows */
+    --text-white: #f8f9fa;     /* Crisp White for headings */
+    --text-muted: #8892b0;     /* Muted Silver-Blue for paragraphs */
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: radial-gradient(circle at center, #112d4e 0%, var(--bg-dark-blue) 100%);
+    color: var(--text-white);
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* --- Header Section (Dark Blue Background with Gold Text & Border) --- */
+header {
+    text-align: center;
+    background-color: var(--card-blue);
+    color: var(--text-white);
+    padding: 60px 20px;
+    border-radius: 15px;
+    border: 2px solid var(--gold-main); /* Golden Border */
+    box-shadow: 0 10px 30px rgba(245, 196, 83, 0.15); /* Soft Gold Glow */
+    animation: headerScaleIn 1.2s ease-out;
+}
+
+@keyframes headerScaleIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.8em;
+    color: var(--gold-main); /* Title in Gold */
+    text-shadow: 0 2px 10px rgba(245, 196, 83, 0.3);
+}
+
+header p {
+    font-weight: 300;
+    color: var(--text-muted);
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+/* --- Sections Common Styling --- */
+section {
+    background-color: var(--card-blue);
+    margin: 30px 0;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(245, 196, 83, 0.1); /* Very subtle gold border */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* --- Dynamic Interactivity: Hover/Tap on Sections --- */
+section:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-main); /* Border turns full gold on hover */
+    box-shadow: 0 15px 30px rgba(245, 196, 83, 0.15); /* Golden shadow glow */
+}
+
+/* --- Section Heading --- */
+h2 {
+    color: var(--gold-main); /* Headings in Gold */
+    border-bottom: 2px solid var(--gold-main);
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+p {
+    line-height: 1.7;
+    color: var(--text-muted); /* Paragraphs in clean muted color */
+    font-size: 1.05em;
+}
+
+/* --- Skills List Custom Styling --- */
+.skills ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.skills li {
+    background-color: rgba(245, 196, 83, 0.05); /* Slight gold tint */
+    margin: 12px 0;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(245, 196, 83, 0.1);
+    color: var(--text-white);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.skills li:hover {
+    background-color: rgba(245, 196, 83, 0.15);
+    border-color: var(--gold-main);
+    transform: translateX(5px); /* List item slides right slightly on hover */
+}
+
+/* --- Project Card Styling --- */
+.project-card {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 25px;
+    border-left: 5px solid var(--gold-main); /* Gold accent bar */
+    border-radius: 10px;
+    animation: projectPulse 3s infinite;
+}
+
+.project-card h3 {
+    color: var(--text-white);
+    margin-top: 0;
+}
+
+@keyframes projectPulse {
+    0% { box-shadow: 0 0 15px rgba(245, 196, 83, 0.05); }
+    50% { box-shadow: 0 0 25px rgba(245, 196, 83, 0.2); }
+    100% { box-shadow: 0 0 15px rgba(245, 196, 83, 0.05); }
+}
+
+/* --- Floating WhatsApp Button --- */
+.whatsapp-floating-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background-color: #25D366; /* Kept official green for recognition */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    transition: transform 0.3s ease;
+    animation: rippleGlow 2s infinite;
+}
+
+.whatsapp-icon {
+    width: 35px;
+    height: 35px;
+    fill: white;
+}
+
+.whatsapp-floating-btn:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+@keyframes rippleGlow {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6), 0 4px 20px rgba(0, 0, 0, 0.5); }
+    70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0), 0 4px 20px rgba(0, 0, 0, 0.5); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 4px 20px rgba(0, 0, 0, 0.5); }
+}
+
+/* --- Responsiveness for Mobile Screens --- */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em;
+    }
+    body {
+        padding: 10px;
+    }
+}
+
