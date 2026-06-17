@@ -3,127 +3,805 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dynamic Portfolio</title>
-    <link rel="stylesheet" href="stylee.css">
+    <title>Premium Black & Red Portfolio</title>
+    
     <style>
-        /* JavaScript scroll animation ko smoothly chalane ke liye zaroori CSS */
-        .reveal {
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #050505; /* Deep Jet Black */
+            color: #ffffff;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 6%;
+            background: rgba(18, 18, 18, 0.85); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 2px solid #ff003c;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(255, 0, 60, 0.15);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: #ff003c;
+            text-shadow: 0 0 15px rgba(255, 0, 60, 0.7);
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 15px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ff003c;
+            text-shadow: 0 0 10px rgba(255, 0, 60, 0.6);
+        }
+
+        /* Dynamic Home / Hero Section */
+        .hero-section {
+            height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a0006 0%, #050505 70%);
+            padding: 0 20px;
+        }
+
+        .hero-section h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            animation: fadeInDown 1s ease forwards;
+        }
+
+        .hero-section h1 span {
+            color: #ff003c;
+            text-shadow: 0 0 15px rgba(255, 0, 60, 0.6);
+        }
+
+        /* Typewriter Static Wrapper */
+        .typewriter-container {
+            font-size: 24px;
+            font-weight: 600;
+            color: #cccccc;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #typewriter-text {
+            color: #ff003c;
+            border-right: 3px solid #ff003c;
+            padding-right: 5px;
+            white-space: nowrap;
+            animation: blink 0.6s step-end infinite;
+        }
+
+        /* Section Common Styles */
+        .section {
+            padding: 90px 6%;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            color: #ffffff;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 4px;
+            background-color: #ff003c;
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+            box-shadow: 0 0 12px #ff003c, 0 0 20px #ff003c;
+        }
+
+        .separator {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ff003c, transparent);
+            margin: 20px 0;
+            opacity: 0.6;
+        }
+
+        /* About Section */
+        .profile-img-container {
+            width: 170px;
+            height: 170px;
+            margin: 0 auto 30px auto;
+            border-radius: 50%;
+            padding: 6px;
+            background: linear-gradient(135deg, #ff003c, #550014);
+            box-shadow: 0 0 35px rgba(255, 0, 60, 0.7);
+            transition: transform 0.4s ease;
+            animation: pulseGlow 3000ms infinite alternate;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #0a0a0a;
+        }
+
+        .description {
+            max-width: 850px;
+            margin: 0 auto;
+            font-size: 16px;
+            line-height: 1.9;
+            color: #b3b3b3;
+        }
+
+        /* Projects Section (New Upgraded Card Design) */
+        .projects-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .project-card {
+            background: linear-gradient(145deg, #121212, #181818);
+            border: 1px solid #252525;
+            border-bottom: 4px solid #ff003c;
+            padding: 30px 25px;
+            width: 100%;
+            max-width: 360px;
+            border-radius: 12px;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             opacity: 0;
             transform: translateY(40px);
-            transition: all 0.8s ease-out;
         }
-        .reveal.active {
+
+        .project-card.show {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Safe separation design taake projects alag alag boxes mein rahein */
-        .project-card {
-            margin-bottom: 25px; /* Doosre boxes se gap rakhne ke liye */
-        }
-        
-        .project-title a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.3s ease;
+        .project-card:hover, .project-card:active {
+            transform: translateY(-12px);
+            box-shadow: 0 15px 35px rgba(255, 0, 60, 0.3);
+            border-color: #ff003c;
+            background: linear-gradient(145deg, #161616, #222222);
         }
 
-        .project-title a:hover {
-            color: #dfb14b; /* Gold glow on hover */
+        .project-icon {
+            font-size: 35px;
+            color: #ff003c;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 0, 60, 0.4);
+        }
+
+        .project-card h3 {
+            font-size: 22px;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .project-card p {
+            font-size: 14px;
+            color: #999999;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .project-link {
+            color: #ff003c;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 45px;
+            justify-content: center;
+        }
+
+        .skills-column {
+            flex: 1;
+            min-width: 320px;
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .skills-column h3 {
+            font-size: 24px;
+            color: #ff003c;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .skill-box {
+            margin-bottom: 25px;
+        }
+
+        .skill-box p {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+
+        .skill-box span {
+            color: #ff003c;
+            font-weight: 700;
+        }
+
+        .bar {
+            width: 100%;
+            height: 14px;
+            background-color: #141414;
+            border-radius: 7px;
+            overflow: hidden;
+            border: 1px solid #252525;
+            padding: 2px;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #7a001a, #ff003c, #ff4d73);
+            box-shadow: 0 0 15px #ff003c, 0 0 5px #ffffff;
+            border-radius: 5px;
+            width: 0%; 
+            transition: width 1.8s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 18px;
+            background-color: #121212;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: #ff003c;
+            box-shadow: 0 0 12px rgba(255, 0, 60, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            padding: 18px;
+            background: linear-gradient(135deg, #cc0030, #ff003c);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 0, 60, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #ff003c, #ff3366);
+            transform: translateY(-3px);
+        }
+
+        /* KEYFRAMES ANIMATIONS */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: #ff003c; }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 25px rgba(255, 0, 60, 0.5); }
+            100% { box-shadow: 0 0 45px rgba(255, 0, 60, 0.9), 0 0 15px #ff003c; }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 15px; padding: 15px; }
+            nav a { margin: 0 10px; font-size: 14px; }
+            .hero-section h1 { font-size: 32px; }
+            .typewriter-container { font-size: 18px; }
+            .section { padding: 60px 4%; }
+            h2 { font-size: 28px; }
+            .skills-container { flex-direction: column; gap: 25px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1 id="dynamic-title"></h1>
-        <p>Hi, I am a Matric Graduate passionate about Data & IT.</p>
+    <header class="navbar">
+        <div class="logo">Logo</div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </header>
 
-    <section class="about reveal">
-        <h2>About Me</h2>
-        <p>Completed my 10th grade in 2026. Currently learning Web Development and exploring career paths in Data Science and Business Analysis. Active and motivated to work on new tech projects.</p>
-    </section>
-
-    <section class="skills reveal">
-        <h2>My Skills</h2>
-        <ul>
-            <li>HTML & CSS (Basic)</li>
-            <li>JavaScript (Internal Scripting)</li>
-            <li>Microsoft Excel & Word</li>
-        </ul>
-    </section>
-
-    <section class="projects reveal">
-        <h2>My Projects</h2>
+    <section id="home" class="hero-section">
         
-        <div class="project-card">
-            <h3 class="project-title">Dynamic Portfolio Website</h3>
-            <p class="project-desc">Built a responsive personal website using HTML, CSS, and Internal JavaScript on mobile using Acode.</p>
- 
-        </div> <div class="project-card">
-            <h3 class="project-title">
-                <a href="https://rayankhan-7.github.io/My-calculater/" target="_blank">Interactive Calculator ↗</a>
-            </h3>
-            <p class="project-desc">Built using HTML, CSS, and dynamic JavaScript logic. Features a premium dark blue and gold theme with pulsing border glows.</p>
-        </div> <div class="project-card">
-            <h3 class="project-title">
-                <a href="https://rayankhan-7.github.io/watch-stopwatch-and-timer/" target="_blank">Clock, Stopwatch & Timer ↗</a>
-            </h3>
-            <p class="project-desc">A premium royal emerald-gold themed multi-mode timing system featuring a live analog clock with Roman numerals, a precise millisecond stopwatch, and a custom countdown timer with dynamic touch interactions.</p>
-          </div>  <div class="project-card">
-        <h3 class="project-title">
-            <a href="https://rayankhan-7.github.io/quiz-portal/" target="_blank">Quiz Portal ↗</a>
-        </h3>
-        <p class="project-desc">A premium 11th-grade comprehensive exam preparation engine. Features a 30-second synchronized core dynamic timer, automated answer reveal state validation, structural shake error effects, and animated cascading entry transitions on website load.</p>
-          </div> <div class="project-card">
-            <h3 class="project-title">
-                <a href="https://rayankhan-7.github.io/Notes-saver/" target="_blank">Notes Saver ↗</a>
-            </h3>
-            <p class="project-desc">A premium and responsive digital notebook designed for seamless note-taking. Features structured layouts, dynamic content saving, and a clean, user-friendly interface to organize your thoughts on the go.</p>
+        <div class="cyber-frame">
+            <div class="frame-line line-top"></div>
+            <div class="frame-line line-bottom"></div>
+            <div class="frame-line line-left"></div>
+            <div class="frame-line line-right"></div>
+            
+            <div class="corner-bracket top-left"></div>
+            <div class="corner-bracket top-right"></div>
+            <div class="corner-bracket bottom-left"></div>
+            <div class="corner-bracket bottom-right"></div>
+
+            <h1>Welcome to <span>My Portfolio</span></h1>
+            <div class="typewriter-container">
+                I am a&nbsp;<span id="typewriter-text"></span>
+            </div>
         </div>
 
-    </div>
-        </div> </section>
+    </section>
+
+    <style>
+        /* Main Hero Block Adjustments */
+        .hero-section {
+            height: calc(100vh - 80px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1f0008 0%, #050505 80%);
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* Cyber Frame Container jo Text ke aas-paas hoga */
+        .cyber-frame {
+            position: relative;
+            padding: 60px 80px;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(5px);
+            border-radius: 4px;
+            max-width: 90%;
+            box-shadow: inset 0 0 30px rgba(255, 0, 60, 0.1);
+        }
+
+        /* --- 1. CHARON TARAF KI LINES KEY ANIMATIONS --- */
+        .frame-line {
+            position: absolute;
+            background: linear-gradient(to right, transparent, #ff003c, transparent);
+            box-shadow: 0 0 15px #ff003c;
+        }
+
+        /* TOP LINE (Left se Right chalegi) */
+        .line-top {
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            animation: moveRight 3s linear infinite;
+        }
+
+        /* BOTTOM LINE (Right se Left chalegi) */
+        .line-bottom {
+            bottom: 0;
+            right: -100%;
+            width: 100%;
+            height: 2px;
+            animation: moveLeft 3s linear infinite;
+        }
+
+        /* LEFT LINE (Niche se Upar chalegi) */
+        .line-left {
+            left: 0;
+            bottom: -100%;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to top, transparent, #ff003c, transparent);
+            animation: moveUp 3s linear infinite;
+            animation-delay: 1.5s; /* timing delay taaki loop natural lage */
+        }
+
+        /* RIGHT LINE (Upar se Niche chalegi) */
+        .line-right {
+            right: 0;
+            top: -100%;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #ff003c, transparent);
+            animation: moveDown 3s linear infinite;
+            animation-delay: 1.5s;
+        }
+
+        /* --- 2. KONE WALE BRACKETS (Glow Corners) --- */
+        .corner-bracket {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .top-left { top: -5px; left: -5px; border-top-color: #ff003c; border-left-color: #ff003c; filter: drop-shadow(-3px -3px 5px #ff003c); }
+        .top-right { top: -5px; right: -5px; border-top-color: #ff003c; border-right-color: #ff003c; filter: drop-shadow(3px -3px 5px #ff003c); }
+        .bottom-left { bottom: -5px; left: -5px; border-bottom-color: #ff003c; border-left-color: #ff003c; filter: drop-shadow(-3px 3px 5px #ff003c); }
+        .bottom-right { bottom: -5px; right: -5px; border-bottom-color: #ff003c; border-right-color: #ff003c; filter: drop-shadow(3px 3px 5px #ff003c); }
+
+        /* --- 3. ANIMATION LIFECYCLE (KEYFRAMES) --- */
+        @keyframes moveRight {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+        @keyframes moveLeft {
+            0% { right: -100%; }
+            50%, 100% { right: 100%; }
+        }
+        @keyframes moveUp {
+            0% { bottom: -100%; }
+            50%, 100% { bottom: 100%; }
+        }
+        @keyframes moveDown {
+            0% { top: -100%; }
+            50%, 100% { top: 100%; }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .cyber-frame {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+
+
+    <hr class="separator">
+
+
+        </div>
+        <h2>About Me</h2>
+        <p class="description">
+            Hey there! I’m Muahammad Rayan Khan a tech-savvy student who just cleared my matriculation exams in 2026. I've always been fascinated by tech, so I picked up coding basics and started building websites. Currently, my favorite playground is AI—I use advanced artificial intelligence tools to design and develop unique web experiences. I’m always eager to learn, build, and explore what's next in the digital world!.
+        </p>
+    </section>
+
+    <hr class="separator">
+
+    <section id="projects" class="section">
+        <h2>My Projects</h2>
+        <div class="projects-container">
+            
+            <div class="project-card">
+                <div class="project-icon">📱</div>
+                <h3>Interactive calculater </h3>
+                <p>Developed a fully customized premium interactive calculater by using html,CSS and internal javascript by help of AI.</p>
+                <a href="https://rayankhan-7.github.io/My-calculater/" class="project-link">View Project &rarr;</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">📚</div>
+                <h3>QUIZ PORTAL</h3>
+                <p>Built a fully customized website for 11 and 12 grade students MCQS test for both PRE-MEDICAL and PRE-ENGINERING students.</p>
+                <a href="https://rayankhan-7.github.io/quiz-portal/" class="project-link">View Project &rarr;</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">⏰</div>
+                <h3>clock with stopwatch and timer</h3>
+                <p>A premium and fully work clock with stopwatch and timer mode.</p>
+                <a href="https://rayankhan-7.github.io/watch-stopwatch-and-timer/" class="project-link">View Project &rarr;</a>
+            </div>
+
+           <div class="project-card">
+                <div class="project-icon">📑</div>
+                <h3>E-Library</h3>
+                <p>Built notes saving website in which student can save their notes this suppprt files images/pdf e.t.c.</p>
+                <a href="https://rayankhan-7.github.io/Notes-saver/" class="project-link">View Project &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <hr class="separator">
+
+    <section id="skills" class="section">
+        <h2>My Skills</h2>
+        <div class="skills-container">
+            <div class="skills-column">
+                <h3>Coding Skills</h3>
+                <div class="skill-box"><p>HTML <span>80%</span></p><div class="bar"><div class="progress" data-target="80%"></div></div></div>
+                <div class="skill-box"><p>CSS <span>75%</span></p><div class="bar"><div class="progress" data-target="75%"></div></div></div>
+                <div class="skill-box"><p>JAVASCRIPT <span>85%</span></p><div class="bar"><div class="progress" data-target="85%"></div></div></div>
+                <div class="skill-box"><p>AI <span>87%</span></p><div class="bar"><div class="progress" data-target="87%"></div></div></div>
+            </div>
+            <div class="skills-column">
+                <h3>Professional Skills</h3>
+                <div class="skill-box"><p>WEB Design <span>85%</span></p><div class="bar"><div class="progress" data-target="85%"></div></div></div>
+                <div class="skill-box"><p>WEB Development <span>87%</span></p><div class="bar"><div class="progress" data-target="87%"></div></div></div>
+                <div class="skill-box"><p>Graphic Designer <span>50%</span></p><div class="bar"><div class="progress" data-target="50%"></div></div></div>
+                <div class="skill-box"><p>SEO Marketing <span>70%</span></p><div class="bar"><div class="progress" data-target
+="70%"></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="separator">
+
+    <section id="contact" class="section contact-section">
+        <h2>Contact Me</h2>
+        <form class="contact-form">
+            <input type="text" placeholder="Enter Your Full Name" required>
+            <input type="tel" placeholder="Phone Number" required>
+            <input type="email" placeholder="Email Address" required>
+            <textarea placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit" class="submit-btn">Submit Form</button>
+        </form>
+    </section>
+
     <script>
-        // 1. TYPING ANIMATION
-        const titleText = "Welcome To My  Portfolio";
-        let index = 0;
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // 1. SUPER FAST TYPEWRITER EFFECT
+            const words = ["Web Developer.", "WordPress Expert.", "UI/UX Designer.", "Coder."];
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            const textElement = document.getElementById("typewriter-text");
 
-        function typeEffect() {
-            if (index < titleText.length) {
-                document.getElementById("dynamic-title").innerHTML += titleText.charAt(index);
-                index++;
-                setTimeout(typeEffect, 100);
-            }
-        }
-        window.addEventListener("DOMContentLoaded", typeEffect);
+            // Timings ko bohot fast rakha hai jisse crisp feel aaye
+            const typingSpeed = 50; 
+            const erasingSpeed = 25;
+            const delayBetweenWords = 800; 
 
-        // 2. SCROLL REVEAL ANIMATION
-        function revealSections() {
-            const reveals = document.querySelectorAll(".reveal");
-
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 150;
-
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
+            function typeEffect() {
+                const currentWord = words[wordIndex];
+                
+                if (isDeleting) {
+                    textElement.textContent = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
                 } else {
-                    reveals[i].classList.remove("active");
+                    textElement.textContent = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
                 }
-            }
-        }
-        window.addEventListener("scroll", revealSections);
-        window.addEventListener("DOMContentLoaded", revealSections);
-    </script>
 
-    <a href="https://wa.me/923362267118?text=Hi!%20I%20saw%20your%20portfolio%20and%20want%20to%20connect." class="whatsapp-floating-btn" target="_blank">
-        <svg viewBox="0 0 32 32" class="whatsapp-icon">
-            <path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825.737 5.48 2.025 7.792l-2.025 7.392 7.561-1.983c2.212 1.144 4.727 1.799 7.392 1.799 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.333c-2.417 0-4.693-.619-6.683-1.701l-.479-.261-4.469 1.172 1.193-4.356-.287-.456c-1.193-1.896-1.828-4.115-1.828-6.448 0-6.984 5.683-12.667 12.667-12.667s12.667 5.683 12.667 12.667-5.683 12.667-12.667 12.667zM22.511 19.349c-.354-.177-2.104-1.036-2.427-1.156-.323-.115-.557-.177-.792.177-.234.354-.911 1.156-1.115 1.385-.203.234-.406.26-.76.083-1.505-.635-2.568-1.141-3.594-2.896-.271-.464.271-.427.776-1.432.083-.177.042-.328-.021-.453-.063-.125-.557-1.344-.766-1.849-.203-.495-.411-.427-.557-.432h-.479c-.167 0-.438.063-.667.313-.229.25-1.125 1.1-1.125 2.682s1.156 3.115 1.313 3.323c.156.208 2.271 3.464 5.505 4.865.766.333 1.365.531 1.833.682.771.245 1.474.208 2.031.125.615-.094 1.885-.771 2.156-1.479.271-.708.271-1.313.193-1.438-.083-.115-.302-.198-.656-.375z"/>
+                let currentSpeed = isDeleting ? erasingSpeed : typingSpeed;
+
+                if (!isDeleting && charIndex === currentWord.length) {
+                    currentSpeed = delayBetweenWords;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    currentSpeed = 200; 
+                }
+
+                setTimeout(typeEffect, currentSpeed);
+            }
+
+            // Typewriter ko start karo
+            typeEffect();
+
+
+            // 2. SKILL BARS SCROLL ANIMATION
+            const progressBars = document.querySelectorAll('.progress');
+            const animateSkills = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const bar = entry.target;
+                        bar.style.width = bar.getAttribute('data-target');
+                        observer.unobserve(bar);
+                    }
+                });
+            };
+            const skillsObserver = new IntersectionObserver(animateSkills, { threshold: 0.2 });
+            progressBars.forEach(bar => skillsObserver.observe(bar));
+
+
+            // 3. PROJECT CARDS FADE-IN ENTRY (Smooth Sliding)
+            const projectCards = document.querySelectorAll('.project-card');
+            const animateProjects = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+            const projectsObserver = new IntersectionObserver(animateProjects, { threshold: 0.1 });
+            projectCards.forEach(card => projectsObserver.observe(card));
+        });
+    </script>
+</body>
+
+    </section> <a href="https://wa.me/923362267118" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 448 512" class="whatsapp-icon">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
         </svg>
     </a>
 
+    <style>
+        .whatsapp-float {
+            position: fixed !important; /* Screen par fix rakhne ke liye */
+            width: 60px !important;
+            height: 60px !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            background: linear-gradient(145deg, #121212, #050505) !important; /* Black Base */
+            border: 2px solid #ff003c !important; /* Red Neon Border */
+            border-radius: 50% !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            box-shadow: 0 4px 20px rgba(255, 0, 60, 0.4) !important; /* Red Glow */
+            z-index: 999999 !important; /* Kisi bhi section ke upar lane ke liye force */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        }
+
+        .whatsapp-icon {
+            width: 30px !important;
+            height: 30px !important;
+            fill: #ff003c !important; /* Icon Color Red */
+            transition: fill 0.3s ease !important;
+        }
+
+        /* Hover & Tap Animations */
+        .whatsapp-float:hover, .whatsapp-float:active {
+            transform: scale(1.1) rotate(8deg) !important;
+            background: #ff003c !important; /* Tap karne par BG full Red */
+            border-color: #ffffff !important;
+            box-shadow: 0 8px 30px rgba(255, 0, 60, 0.8), 0 0 15px #ff003c !important;
+        }
+
+        .whatsapp-float:hover .whatsapp-icon, .whatsapp-float:active .whatsapp-icon {
+            fill: #ffffff !important; /* Tap karne par Icon White */
+        }
+
+        /* Mobile Optimization Force */
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 55px !important;
+                height: 55px !important;
+                bottom: 20px !important;
+                right: 20px !important;
+            }
+            .whatsapp-icon {
+                width: 26px !important;
+                height: 26px !important;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // Fast Typewriter Effect
+            const words = ["Web Developer.", "WordPress Expert.", "UI/UX Designer.", "Coder."];
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            const textElement = document.getElementById("typewriter-text");
+
+            const typingSpeed = 50; 
+            const erasingSpeed = 25;
+            const delayBetweenWords = 800; 
+
+            function typeEffect() {
+                if(!textElement) return;
+                const currentWord = words[wordIndex];
+                
+                if (isDeleting) {
+                    textElement.textContent = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    textElement.textContent = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                let currentSpeed = isDeleting ? erasingSpeed : typingSpeed;
+
+                if (!isDeleting && charIndex === currentWord.length) {
+                    currentSpeed = delayBetweenWords;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    currentSpeed = 200; 
+                }
+
+                setTimeout(typeEffect, currentSpeed);
+            }
+
+            typeEffect();
+
+            // Skill Bars Scroll Animation
+            const progressBars = document.querySelectorAll('.progress');
+            const animateSkills = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const bar = entry.target;
+                        bar.style.width = bar.getAttribute('data-target');
+                        observer.unobserve(bar);
+                    }
+                });
+            };
+            const skillsObserver = new IntersectionObserver(animateSkills, { threshold: 0.2 });
+            progressBars.forEach(bar => skillsObserver.observe(bar));
+
+            // Project Cards Slide-in Animation
+            const projectCards = document.querySelectorAll('.project-card');
+            const animateProjects = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+            const projectsObserver = new IntersectionObserver(animateProjects, { threshold: 0.1 });
+            projectCards.forEach(card => projectsObserver.observe(card));
+        });
+    </script>
 </body>
 </html>
+

@@ -1,169 +1,394 @@
-/* --- Core Styles & Variables (Dark Blue & Golden Theme) --- */
-:root {
-    --bg-dark-blue: #0a192f;   /* Premium Dark Navy Blue */
-    --card-blue: #112240;      /* Slightly Lighter Blue for Sections */
-    --gold-main: #f5c453;      /* Royal Metallic Gold */
-    --gold-glow: #e5b33a;      /* Deep Gold for shadows */
-    --text-white: #f8f9fa;     /* Crisp White for headings */
-    --text-muted: #8892b0;     /* Muted Silver-Blue for paragraphs */
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    background: radial-gradient(circle at center, #112d4e 0%, var(--bg-dark-blue) 100%);
-    color: var(--text-white);
-    margin: 0;
-    padding: 20px;
+    background-color: #050505; /* Deep Jet Black */
+    color: #ffffff;
+    scroll-behavior: smooth;
+    padding-bottom: 50px;
     overflow-x: hidden;
 }
 
-/* --- Header Section (Dark Blue Background with Gold Text & Border) --- */
-header {
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 6%;
+    background: rgba(18, 18, 18, 0.85); /* Glassmorphism Header */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 2px solid #ff003c;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(255, 0, 60, 0.15);
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #ff003c;
+    text-shadow: 0 0 15px rgba(255, 0, 60, 0.7);
+}
+
+/* --- MENU ITEMS NEW ANIMATION EFFECT --- */
+nav a {
+    position: relative;
+    padding: 6px 0;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Hover ya Tap karne par text glow karega */
+nav a:hover, nav a:active {
+    color: #ff003c !important;
+    text-shadow: 0 0 12px rgba(255, 0, 60, 0.8), 0 0 5px #ffffff;
+}
+
+/* Niche wali neon line ka base structure (Shuru me hidden/choti hoti hai) */
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to right, #ff003c, #ff4d73);
+    box-shadow: 0 0 8px #ff003c, 0 0 2px #ffffff;
+    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hover ya Tap karte hi line left se right smoothly phail jayegi */
+nav a:hover::after, nav a:active::after {
+    width: 100%;
+}
+
+
+/* Section Common Styles */
+.section {
+    padding: 80px 6%;
     text-align: center;
-    background-color: var(--card-blue);
-    color: var(--text-white);
-    padding: 60px 20px;
-    border-radius: 15px;
-    border: 2px solid var(--gold-main); /* Golden Border */
-    box-shadow: 0 10px 30px rgba(245, 196, 83, 0.15); /* Soft Gold Glow */
-    animation: headerScaleIn 1.2s ease-out;
 }
 
-@keyframes headerScaleIn {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2.8em;
-    color: var(--gold-main); /* Title in Gold */
-    text-shadow: 0 2px 10px rgba(245, 196, 83, 0.3);
-}
-
-header p {
-    font-weight: 300;
-    color: var(--text-muted);
-    font-size: 1.2em;
-    margin-top: 10px;
-}
-
-/* --- Sections Common Styling --- */
-section {
-    background-color: var(--card-blue);
-    margin: 30px 0;
-    padding: 30px;
-    border-radius: 15px;
-    border: 1px solid rgba(245, 196, 83, 0.1); /* Very subtle gold border */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-/* --- Dynamic Interactivity: Hover/Tap on Sections --- */
-section:hover {
-    transform: translateY(-5px);
-    border-color: var(--gold-main); /* Border turns full gold on hover */
-    box-shadow: 0 15px 30px rgba(245, 196, 83, 0.15); /* Golden shadow glow */
-}
-
-/* --- Section Heading --- */
 h2 {
-    color: var(--gold-main); /* Headings in Gold */
-    border-bottom: 2px solid var(--gold-main);
-    padding-bottom: 10px;
-    margin-top: 0;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    color: #ffffff;
+    position: relative;
+    display: inline-block;
 }
 
-p {
-    line-height: 1.7;
-    color: var(--text-muted); /* Paragraphs in clean muted color */
-    font-size: 1.05em;
+h2::after {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 4px;
+    background-color: #ff003c;
+    margin: 10px auto 0 auto;
+    border-radius: 2px;
+    box-shadow: 0 0 12px #ff003c, 0 0 20px #ff003c;
 }
 
-/* --- Skills List Custom Styling --- */
-.skills ul {
-    list-style-type: none;
-    padding: 0;
+.separator {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #ff003c, transparent);
+    margin: 30px 0;
+    opacity: 0.7;
 }
 
-.skills li {
-    background-color: rgba(245, 196, 83, 0.05); /* Slight gold tint */
-    margin: 12px 0;
-    padding: 15px;
+/* About Section */
+.profile-img-container {
+    width: 170px;
+    height: 170px;
+    margin: 0 auto 30px auto;
+    border-radius: 50%;
+    padding: 6px;
+    background: linear-gradient(135deg, #ff003c, #550014);
+    box-shadow: 0 0 35px rgba(255, 0, 60, 0.7);
+    transition: transform 0.4s ease;
+}
+
+.profile-img-container:hover {
+    transform: scale(1.05) rotate(3deg);
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #0a0a0a;
+}
+
+.about me {
+    max-width: 850px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.9;
+    color: #b3b3b3;
+    letter-spacing: 0.3px;
+    text-align: center;
+}
+
+
+/* Journey Section (Cards Upgrade) */
+.journey-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
+    justify-content: center;
+}
+
+.journey-column {
+    flex: 1;
+    min-width: 320px;
+    max-width: 500px;
+    text-align: left;
+}
+
+.journey-column h3 {
+    font-size: 24px;
+    color: #ff003c;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(255, 0, 60, 0.3);
+}
+
+.card {
+    background: linear-gradient(145deg, #121212, #1a1a1a);
+    border: 1px solid #2a2a2a;
+    border-left: 5px solid #ff003c;
+    padding: 25px;
+    margin-bottom: 25px;
     border-radius: 8px;
-    border: 1px solid rgba(245, 196, 83, 0.1);
-    color: var(--text-white);
-    font-weight: 500;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    opacity: 0; 
+    transform: translateY(30px);
+}
+
+.card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobile responsive touch/hover state */
+.card:hover, .card:active {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(255, 0, 60, 0.25);
+    border-color: #ff003c;
+    background: linear-gradient(145deg, #161616, #222222);
+}
+
+.card h4 {
+    font-size: 19px;
+    color: #ffffff;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #ff003c;
+    margin-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #999999;
+    line-height: 1.6;
+}
+
+/* Skills Section (Glow Upgrade) */
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 45px;
+    justify-content: center;
+}
+
+.skills-column {
+    flex: 1;
+    min-width: 320px;
+    max-width: 500px;
+    text-align: left;
+}
+
+.skills-column h3 {
+    font-size: 24px;
+    color: #ff003c;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.skill-box {
+    margin-bottom: 25px;
+}
+
+.skill-box p {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #e0e0e0;
+}
+
+.skill-box span {
+    color: #ff003c;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(255, 0, 60, 0.5);
+}
+
+.bar {
+    width: 100%;
+    height: 14px;
+    background-color: #141414;
+    border-radius: 7px;
+    overflow: hidden;
+    border: 1px solid #252525;
+    padding: 2px;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(to right, #7a001a, #ff003c, #ff4d73);
+    box-shadow: 0 0 15px #ff003c, 0 0 5px #ffffff;
+    border-radius: 5px;
+    width: 0%; 
+    transition: width 1.8s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+/* Contact Section (Inputs Glow) */
+.contact-section {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 18px;
+    background-color: #121212;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 15px;
     transition: all 0.3s ease;
 }
 
-.skills li:hover {
-    background-color: rgba(245, 196, 83, 0.15);
-    border-color: var(--gold-main);
-    transform: translateX(5px); /* List item slides right slightly on hover */
+.contact-form input:focus, .contact-form textarea:focus {
+    outline: none;
+    border-color: #ff003c;
+    background-color: #161616;
+    box-shadow: 0 0 12px rgba(255, 0, 60, 0.5);
+    transform: translateY(-2px);
 }
 
-/* --- Project Card Styling --- */
-.project-card {
-    background-color: rgba(0, 0, 0, 0.2);
-    padding: 25px;
-    border-left: 5px solid var(--gold-main); /* Gold accent bar */
-    border-radius: 10px;
-    animation: projectPulse 3s infinite;
+.submit-btn {
+    padding: 18px;
+    background: linear-gradient(135deg, #cc0030, #ff003c);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 0, 60, 0.4);
+    transition: all 0.3s ease;
 }
 
-.project-card h3 {
-    color: var(--text-white);
-    margin-top: 0;
+.submit-btn:hover, .submit-btn:active {
+    background: linear-gradient(135deg, #ff003c, #ff3366);
+    box-shadow: 0 8px 25px rgba(255, 0, 60, 0.6);
+    transform: translateY(-3px);
 }
 
-@keyframes projectPulse {
-    0% { box-shadow: 0 0 15px rgba(245, 196, 83, 0.05); }
-    50% { box-shadow: 0 0 25px rgba(245, 196, 83, 0.2); }
-    100% { box-shadow: 0 0 15px rgba(245, 196, 83, 0.05); }
+/* Mobile Responsive Optimization */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 18px;
+        padding: 15px;
+    }
+    nav a {
+        margin: 0 12px;
+        font-size: 14px;
+    }
+    .section {
+        padding: 60px 4%;
+    }
+    h2 {
+        font-size: 30px;
+    }
+    .journey-container, .skills-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
 }
-
-/* --- Floating WhatsApp Button --- */
-.whatsapp-floating-btn {
+<style>
+/* Floating WhatsApp Button Styling */
+.whatsapp-float {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
     width: 60px;
     height: 60px;
-    background-color: #25D366; /* Kept official green for recognition */
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366; /* Official WhatsApp Green */
     border-radius: 50%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    transition: transform 0.3s ease;
-    animation: rippleGlow 2s infinite;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.5);
+    z-index: 1000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .whatsapp-icon {
-    width: 35px;
-    height: 35px;
-    fill: white;
+    width: 32px;
+    height: 32px;
+    fill: #ffffff; /* White Logo */
 }
 
-.whatsapp-floating-btn:hover {
-    transform: scale(1.1) rotate(5deg);
+/* Hover aur Mobile Touch effect */
+.whatsapp-float:hover, .whatsapp-float:active {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.8), 0 0 15px #25d366;
 }
 
-@keyframes rippleGlow {
-    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6), 0 4px 20px rgba(0, 0, 0, 0.5); }
-    70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0), 0 4px 20px rgba(0, 0, 0, 0.5); }
-    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 4px 20px rgba(0, 0, 0, 0.5); }
-}
-
-/* --- Responsiveness for Mobile Screens --- */
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 2em;
+/* Choti screens (Mobile) par position thodi adjust karne ke liye */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 55px;
+        height: 55px;
+        bottom: 20px;
+        right: 20px;
     }
-    body {
-        padding: 10px;
+    .whatsapp-icon {
+        width: 28px;
+        height: 28px;
     }
 }
-
+<style>
